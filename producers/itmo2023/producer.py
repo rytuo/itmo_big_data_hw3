@@ -18,12 +18,13 @@ def write_data(producer):
         temperature = random.uniform(60, 110) + 273
         execution_time = i * 5
         cur_data = {"device_id": device_id, "temperature": temperature, "execution_time": execution_time}
+        key=dumps(device_id).encode('utf-8')
         producer.send(
             TOPIC,
-            key=dumps(device_id).encode('utf-8'),
+            key=key,
             value=cur_data,
         )
-        print(f"Data was sent to topic [{TOPIC}]: {cur_data}")
+        print(f"Data was sent to topic [{TOPIC}]({key}): {cur_data}")
 
         if randint(0, 7) == 7:
             print("Sleep 4s...")

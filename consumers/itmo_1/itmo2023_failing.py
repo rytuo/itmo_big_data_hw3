@@ -1,6 +1,6 @@
 from kafka import KafkaConsumer
 
-from .backoff import backoff
+from utils.backoff import backoff
 
 
 @backoff(tries=10,sleep=60)

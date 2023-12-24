@@ -43,7 +43,8 @@ RUN set -ex; \
   rm -rf /var/lib/apt/lists/* && \
   python -m pip install --upgrade pip; \
   pip install apache-flink==${FLINK_VERSION}; \
-  pip install kafka-python;
+  pip install kafka-python; \
+  pip install python-dotenv;
 
 # Download connector libraries
 RUN wget -P /opt/flink/lib/ https://repo.maven.apache.org/maven2/org/apache/flink/flink-json/${FLINK_VERSION}/flink-json-${FLINK_VERSION}.jar; \

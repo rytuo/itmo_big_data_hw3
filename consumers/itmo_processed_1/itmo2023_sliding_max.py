@@ -6,7 +6,7 @@ def create_consumer():
     consumer = KafkaConsumer(
         "itmo2023-sliding-max",
         group_id="itmo-processed-1",
-        bootstrap_servers='localhost:29092',
+        bootstrap_servers='kafka:9092',
         auto_offset_reset='earliest',
         enable_auto_commit=True
     )

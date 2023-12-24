@@ -3,7 +3,7 @@ from kafka import KafkaConsumer
 from utils.backoff import backoff
 
 
-@backoff(tries=10,sleep=60)
+@backoff(tries=5, sleep=2)
 def message_handler(value):
     # send to http get (rest api) to get response
     # save to db message (kafka) + external
@@ -15,7 +15,7 @@ def create_consumer():
     consumer = KafkaConsumer(
         "itmo2023",
         group_id='itmo-1',
-        bootstrap_servers='localhost:29092',
+        bootstrap_servers='kafka:9092',
         auto_offset_reset='earliest',
         enable_auto_commit=True,
     )

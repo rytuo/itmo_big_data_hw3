@@ -1,7 +1,7 @@
 import os
 
 from pyflink.datastream import StreamExecutionEnvironment
-from pyflink.datastream.checkpoint_config import CheckpointConfig, ExternalizedCheckpointCleanup
+from pyflink.datastream.checkpoint_config import ExternalizedCheckpointCleanup
 from pyflink.datastream.checkpointing_mode import CheckpointingMode
 from pyflink.datastream.checkpoint_storage import FileSystemCheckpointStorage
 
@@ -19,12 +19,9 @@ MAX_CONCURRENT_CHECKPOINTS=int(os.environ.get("MAX_CONCURRENT_CHECKPOINTS"))
 """
 Configure checkpoints for stream
 """
-def configure_checkpoints(
-        env: StreamExecutionEnvironment
-    ):
+def configure_checkpoints(env: StreamExecutionEnvironment):
+
     config = env.get_checkpoint_config()
-    if config is None:
-        config = CheckpointConfig()
 
     # set mode to exactly-once (this is the default)
     config.set_checkpointing_mode(CheckpointingMode.EXACTLY_ONCE)
@@ -52,8 +49,6 @@ def configure_checkpoints(
     )
 
     config.set_checkpoint_storage(storage)
-
-    env.configure(config)
 
     # start a checkpoint every `CHECKPOINT_TIME_MS` ms
     env.enable_checkpointing(CHECKPOINT_TIME_MS)

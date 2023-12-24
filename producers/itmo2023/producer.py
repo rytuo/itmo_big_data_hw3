@@ -38,7 +38,7 @@ def create_producer():
     for i in range(0, 6):
         try:
             producer = KafkaProducer(
-                bootstrap_servers=['localhost:29092'],
+                bootstrap_servers=['kafka:9092'],
                 value_serializer=lambda x: dumps(x).encode('utf-8'),
                 acks=1,
             )

@@ -8,7 +8,8 @@ services:
       context: hadoop/.
       target: build_hadoop
     hostname: namenode
-    command: ["hdfs", "namenode"]
+    # command: ["hdfs", "namenode", "-format", "-force"] # First run me
+    command: ["hdfs", "namenode"] # Then me
     env_file:
       - ./hadoop.env
     ports:
@@ -30,6 +31,8 @@ services:
     volumes:
       - hdfs1:/tmp/hadoop-hadoop
       - ./hadoop_conf/etc:/opt/hadoop/etc
+
+  # flink
 
   jobmanager:
     build: .
@@ -80,3 +83,6 @@ services:
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL_SAME_HOST:PLAINTEXT
       KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
 
+volumes:
+  hdfs1:
+  hadoop_namenode:

@@ -1,5 +1,36 @@
 version: '2.1'
 services:
+
+  # Basic hdfs
+
+  namenode:
+    build:
+      context: hadoop/.
+      target: build_hadoop
+    hostname: namenode
+    command: ["hdfs", "namenode"]
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 9870:9870
+    volumes:
+      - hadoop_namenode:/tmp/hadoop-root/
+      - ./hadoop_conf/etc:/opt/hadoop/etc
+
+  datanode1:
+    build:
+      context: hadoop/.
+      target: build_hadoop
+    hostname: datanode
+    command: ["hdfs", "datanode"]
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 9864:9864
+    volumes:
+      - hdfs1:/tmp/hadoop-hadoop
+      - ./hadoop_conf/etc:/opt/hadoop/etc
+
   jobmanager:
     build: .
     image: pyflink/pyflink:1.16.0-scala_2.12
